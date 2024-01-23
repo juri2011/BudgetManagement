@@ -1,16 +1,17 @@
 package budgetManagementProj;
 
+import java.sql.Date;
 import java.util.Scanner;
 
 public class MainController {
   public static void help() {
     //도움말 출력
-    System.out.println("1. 추가 : add 잔액");
-    System.out.println("2. 수입 : income 수입금액 항목");
-    System.out.println("3. 지출 : expense 지출금액 항목");
-    System.out.println("4. 내용 변경 : edit");
+    System.out.println("1. 수입 추가 : income 수입금액 항목");
+    System.out.println("2. 지출 추가 : expense 지출금액 항목");
+    System.out.println("3. 내용 변경 : edit");
+    System.out.println("4. 내용 삭제 : delete");
     System.out.println("5. 전체 내역 출력 : list");
-    System.out.println("6. 항목별 출력 : info 항목명");
+    System.out.println("6. 항목별 출력 : info 수입/지출/항목");
     System.out.println("7. 도움말 : help");
     System.out.println("8. 종료 : exit");
     System.out.println();
@@ -18,11 +19,168 @@ public class MainController {
   public static void main(String[] args) {
     //main
     System.out.println("가계부 프로그램입니다.");
+    help();
     Scanner sc = new Scanner(System.in);
-    while(true) {
-      String userInput = sc.nextLine();
-      
-    }
+   
+    //contentNum은 항목의 id와 같은 역할로, 항목이 새로 추가될 때마다 1씩 더하여 저장됩니다.
+    //맨 처음 만들어지는 항목의 contentNum은 1이 될 것입니다.
+    //항목의 contentNum은 항목을 삭제, 수정, 변경하기 위해 내부적으로 사용됩니다.
+    //사용자는 contentNum을 직접 이용하지 않고, 프로그램이 제시하는 선택지를 통해 간접적으로 이용합니다.
+    int contentNum = 1;
     
+    while(true) {
+    	
+      System.out.println("명령문을 입력해주세요.");
+      String userInput = sc.nextLine();
+      String[] userInputs = userInput.split(" ");
+      
+      //1. 수입추가
+      if(userInput.startsWith("income")) {
+    	  
+    	  //수입금액의 값을 받아올 int형 변수입니다.
+    	  int income;
+    	  String test = userInputs[9];
+    	  //유효성 검사(income 수입금액 항목)
+    	  if(userInputs.length!=3) {
+    		  System.out.println("");
+    		  continue;
+    	  }
+    	  //예외처리(수입금액이 정수로 입력되지 않았을 경우)
+    	  try {
+    		  income = Integer.parseInt(userInputs[1]);
+    	  }catch(NumberFormatException e) {
+    		  System.out.println("수입금액이 올바른 형식으로 입력되지 않았습니다. 0 이상의 정수를 적어주십시오.");
+    		  continue;
+    	  }
+    	  //예외처리(수입금액은 0 이상이어야함)
+    	  if(income<0) {
+    		  System.out.println("수입금액은 0 미만의 음수로 입력될 수 없습니다.");
+    		  continue;
+    	  }
+    	  
+    	  //RequestDTO에서 balance 멤버변수를 삭제할 것을 고려하고 있습니다.
+    	  //그리고 income과 expense를 money라는 이름의 int형 변수로 합쳐서 다루는 것 또한 고려하고 있습니다.
+    	  //RequestDTO 생성자의 파라미터 순서도 아래 인자 형식에 맞게 바꾸는 것이 어떨까요?
+    	  
+    	  RequestDTO dto = new RequestDTO(contentNum, "수입", userInputs[1], userInputs[2], new Date());
+    	  BudgetAddService addSrv = new BudgetAddService();
+    	  
+    	  //BudgetAddService에 addIncome 메소드가 필요합니다.
+    	  addSrv.addItem(dto);
+    	  
+    	  //명령이 추가되었으므로 다음 항목의 아이디가 될 contentNum의 값을 1 더합니다.
+    	  contentNum++;
+    	  
+      }
+      //2. 지출추가
+      else if(userInput.startsWith("expense")) {
+    	  int expense;
+    	  
+    	  //아래 들어갈 내용은 기본적으로 income 명령어와 같습니다.
+    	  BudgetAddService addSrv = new BudgetAddService();
+    	  
+    	  //BudgetAddService에 addIncome 메소드가 필요합니다.
+    	  RequestDTO dto = new RequestDTO(contentNum, "지출", userInputs[1], userInputs[2], new Date());
+    	  BudgetAddService addSrv = new BudgetAddService();
+    	  addSrv.addItem(dto);
+    	  //명령이 추가되었으므로 다음 항목의 아이디가 될 contentNum의 값을 1 더합니다.
+    	  contentNum++;
+      }
+      //3. 내용변경
+      else if(userInput.trim().compareToIgnoreCase("edit")==0) {
+    	  //클래스 생성 필요
+    	  BudgetEditService edtSrv = new BudgetEditService();
+    	  //리스트가 하나라도 있는지 확인
+    	  //리스트를 보여준다
+    	  
+    	  //리스트에 번호를 주어 삭제할 아이템을 사용자가 고르게 한 후,
+    	  //해당 아이템의 contentNum을 이용해 실제 DAO에서 찾아 그 값을 변경합니다.
+      }
+      //4. 내용삭제
+      else if(userInput.trim().compareToIgnoreCase("delete")==0) {
+    	  BudgetDeleteService dltSrv = new BudgetDeleteService();
+    	  ArrayList<RequestDTO> dtos = new ArrayList<>
+    	  
+    	  RequestDTO dto;
+    	  //리스트가 하나라도 있는지 확인하는 메소드 필요
+    	  if(!dltSrv.isItemExists()) {
+    		  System.out.println("삭제할 아이템이 존재하지 않습니다.");
+    		  continue;
+    	  }
+    	  //전체 리스트에 번호를 주어 선택하게 하는 메소드 필요
+    	  //이 메소드는 각 아이템의 contentNum이 담겨있는 int형 배열을 반환한다.
+    	  int[] contentNums = dltSrv.showAllItemsWithNum();
+    	  
+    	  System.out.println("삭제할 항목의 번호를 입력해주세요.");
+    	  
+    	  userInput = sc.nextLine();
+    	  int userInputNum;
+    	  
+    	  try {
+    		  userInputNum = Integer.parseInt(userInput);
+    	  }
+    	  catch(NumberFormatException e) {
+    		  System.out.println("숫자가 입력되지 않았습니다.");
+    		  continue;
+    	  }
+    	  try {
+    		  dltSrv.deleteItem(contentNums[userInputNum]);
+    	  }catch(ArrayIndexOutOfBoundsException e) {
+    		  System.out.println("항목에 없는 숫자를 입력하셨습니다.");
+    		  continue;
+    	  }
+    	  //메소드 필요
+      }
+      //5. 전체내역출력
+      else if(userInput.trim().compareToIgnoreCase("list")==0) {
+    	  BudgetListService lstSrv = new BudgetListService();
+    	  //메소드 필요
+    	  lstSrv.list();
+      }
+      //6. 항목별출력
+      else if(userInput.startsWith("info")) {
+    	  System.out.println("출력하고 싶은 그룹을 입력해주세요. 수입/지출/항목");
+    	  userInput = sc.nextLine();
+    	  BudgetInfoService infoSrv; = new BudgetInfoService();
+    	  
+    	  if(userInput.equals("수입")) {
+    		  //메소드 필요
+    		  infoSrv.infoIncome();
+    	  }
+    	  else if(userInput.equals("지출")) {
+    		  //메소드 필요
+    		  infoSrv.infoExpense();
+    	  }
+    	  else if(userInput.equals("항목")) {
+    		  System.out.println("출력하고 싶은 항목을 입력해주세요.");
+    		  userInput = sc.nextLine();
+    		  //해당 메소드에서 항목이 있는지 확인하고, 처리
+    		  //메소드 필요
+    		  infoSrv.infoMemo(userInput);
+    		  
+    	  }
+    	  else {
+    		  System.out.println("잘못 입력하셨습니다.");
+    		  continue;
+    	  }
+      }
+      //7. 도움말
+      else if(userInput.trim().compareToIgnoreCase("help")==0) {
+    	  help();
+    	  continue;
+      }
+      //8. 종료
+      else if(userInput.trim().compareToIgnoreCase("exit")==0) {
+    	  System.out.println("프로그램을 종료합니다.");
+    	  break;
+      }
+      //명령어 잘 못 입력되었을 때
+      else {
+    	  //사용자가 명령어를 몰라서 잘 못 입력했을 수도 있으므로 help를 띄워주는 게 좋을 것 같습니다
+    	  help();
+    	  continue;
+      }//end of if
+    }//end of while
+    sc.close();
   }//end of main
 }

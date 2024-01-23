@@ -5,4 +5,5 @@ public class BudgetInfoService {
   public BudgetInfoService() {
     dao = new BudgetDAO();
   }
+  //Info에서는 contentNum을 출력하지 않습니다.
 }

@@ -5,4 +5,5 @@ public class BudgetDeleteService {
   public BudgetDeleteService() {
     dao = new BudgetDAO();
   }
+//Delete에서는 contentNum을 출력하지 않습니다.
 }
