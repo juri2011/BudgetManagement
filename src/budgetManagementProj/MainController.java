@@ -71,6 +71,7 @@ public class MainController {
     	  //명령이 추가되었으므로 다음 항목의 아이디가 될 contentNum의 값을 1 더합니다.
     	  contentNum++;
     	  
+    	  System.out.println("성공적으로 등록되었습니다.");
       }
       //2. 지출추가
       else if(userInput.startsWith("expense")) {
