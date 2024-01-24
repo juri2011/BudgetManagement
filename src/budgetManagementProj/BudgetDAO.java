@@ -35,7 +35,13 @@ public class BudgetDAO {
     budMap.put(vo.getContentNum(), vo);
   }
   
+  //budMap
+  public boolean isMapEmpty() {
+    return budMap.isEmpty();
+  }
   
-
+  public void remove(int contentNum){
+    budMap.remove(contentNum);
+  }
   
 }

@@ -93,18 +93,41 @@ public class MainController {
     	  //클래스 생성 필요
     	  BudgetEditService edtSrv = new BudgetEditService();
     	  //리스트가 하나라도 있는지 확인
+    	  if(!edtSrv.isItemExists()) {
+          System.out.println("변경할 아이템이 존재하지 않습니다.");
+          continue;
+        }
     	  //리스트를 보여준다
-    	  
-    	  //리스트에 번호를 주어 삭제할 아이템을 사용자가 고르게 한 후,
-    	  //해당 아이템의 contentNum을 이용해 실제 DAO에서 찾아 그 값을 변경합니다.
+    	  int[] contentNums = edtSrv.showAllItemsWithNum();
+    	  userInput = sc.nextLine();
+        int userInputNum;
+        
+        try {
+          userInputNum = Integer.parseInt(userInput);
+        }
+        catch(NumberFormatException e) {
+          System.out.println("숫자가 입력되지 않았습니다.");
+          continue;
+        }
+        try {
+          edtSrv.editItem(contentNums[userInputNum]);
+        }catch(ArrayIndexOutOfBoundsException e) {
+          System.out.println("항목에 없는 숫자를 입력하셨습니다.");
+          continue;
+        }//end of try-catch
+      }//end of else if
+      
+      //5. 전체내역출력
+      else if(userInput.trim().compareToIgnoreCase("list")==0) {
+        BudgetListService lstSrv = new BudgetListService();
+        //메소드 필요
+        lstSrv.list();
       }
       //4. 내용삭제
       else if(userInput.trim().compareToIgnoreCase("delete")==0) {
     	  BudgetDeleteService dltSrv = new BudgetDeleteService();
-    	  ArrayList<RequestDTO> dtos = new ArrayList<>
     	  
-    	  RequestDTO dto;
-    	  //리스트가 하나라도 있는지 확인하는 메소드 필요
+    	  //리스트가 하나라도 있는지 확인
     	  if(!dltSrv.isItemExists()) {
     		  System.out.println("삭제할 아이템이 존재하지 않습니다.");
     		  continue;
@@ -113,7 +136,7 @@ public class MainController {
     	  //이 메소드는 각 아이템의 contentNum이 담겨있는 int형 배열을 반환한다.
     	  int[] contentNums = dltSrv.showAllItemsWithNum();
     	  
-    	  System.out.println("삭제할 항목의 번호를 입력해주세요.");
+    	  
     	  
     	  userInput = sc.nextLine();
     	  int userInputNum;
@@ -130,9 +153,8 @@ public class MainController {
     	  }catch(ArrayIndexOutOfBoundsException e) {
     		  System.out.println("항목에 없는 숫자를 입력하셨습니다.");
     		  continue;
-    	  }
-    	  //메소드 필요
-      }
+    	  }//end of try-catch
+      }//end of else if
       //5. 전체내역출력
       else if(userInput.trim().compareToIgnoreCase("list")==0) {
     	  BudgetListService lstSrv = new BudgetListService();
@@ -143,7 +165,7 @@ public class MainController {
       else if(userInput.startsWith("info")) {
     	  System.out.println("출력하고 싶은 그룹을 입력해주세요. 수입/지출/항목");
     	  userInput = sc.nextLine();
-    	  BudgetInfoService infoSrv; = new BudgetInfoService();
+    	  BudgetInfoService infoSrv = new BudgetInfoService();
     	  
     	  if(userInput.equals("수입")) {
     		  //메소드 필요
