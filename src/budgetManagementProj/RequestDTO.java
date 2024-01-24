@@ -10,7 +10,7 @@ public class RequestDTO {
   private int balance;
   private String desc;
   private int money;
-  private Date adddate;
+  private Date addDate;
   private String memo;
 
   
@@ -21,6 +21,81 @@ public class RequestDTO {
     this.desc = desc;
     this.money = money;
     this.memo = memo;
-    this.adddate = addDate;    
+    this.addDate = addDate;    
   }
+
+
+
+  public int getContentNum() {
+    return contentNum;
+  }
+
+
+
+  public void setContentNum(int contentNum) {
+    this.contentNum = contentNum;
+  }
+
+
+
+  public int getBalance() {
+    return balance;
+  }
+
+
+
+  public void setBalance(int balance) {
+    this.balance = balance;
+  }
+
+
+
+  public String getDesc() {
+    return desc;
+  }
+
+
+
+  public void setDesc(String desc) {
+    this.desc = desc;
+  }
+
+
+
+  public int getMoney() {
+    return money;
+  }
+
+
+
+  public void setMoney(int money) {
+    this.money = money;
+  }
+
+
+
+  public Date getAddDate() {
+    return addDate;
+  }
+
+
+
+  public void setAddDate(Date addDate) {
+    this.addDate = addDate;
+  }
+
+
+
+  public String getMemo() {
+    return memo;
+  }
+
+
+
+  public void setMemo(String memo) {
+    this.memo = memo;
+  }
+  
+  //getter 와 setter
+  
 }
