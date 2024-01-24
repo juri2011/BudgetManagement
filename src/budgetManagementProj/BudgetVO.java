@@ -8,15 +8,15 @@ public class BudgetVO {
   //항목 번호-출력되지 않고 내부적으로 사용됨 
   private int contentNum;
   //기록당시 잔고 저장
-  private int balance;
+  //private int balance;
+  //항목
+  private String desc;
   //money (수입/지출 토탈)
   private int money;
   //메모
   private String memo;
   //기입일
   private Date addDate;
-  //항목
-  private String desc;
   
   
   public BudgetVO(int contentNum, String desc, int money, String memo, Date addDate) {
@@ -26,13 +26,9 @@ public class BudgetVO {
     this.memo = memo;
     this.addDate = addDate;
   }
+  
+  
   //Getter and Setter
-  public int getBalance() {
-    return balance;
-  }
-  public void setBalance(int balance) {
-    this.balance = balance;
-  } 
   public int getMoney() {
     return money;
   }

@@ -10,7 +10,17 @@ public class BudgetDAO {
   private static int totBalance = 0;
   private static Map<Integer, BudgetVO> budMap = new HashMap<Integer, BudgetVO>();
   
-  //MemberVO 타입의 데이터를 받아 DB에 저장하는 함수
+  //desc값을 더하는 수입 메소드
+  public void balanceIncome(int money) {
+    totBalance += money;
+  }
+  
+  //desc값을 빼는 지출 메소드
+  public void balanceExpense(int money) {
+    totBalance -= money;
+  }
+  
+  //MemberVO 타입의 데이터를 받아 DB에 저장하는 함수 
   public void insert(BudgetVO vo) {
     budMap.put(vo.getContentNum(), vo);
   }
