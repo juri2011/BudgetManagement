@@ -41,7 +41,7 @@ public class MainController {
     	  
     	  //유효성 검사(income 수입금액 항목)
     	  if(userInputs.length!=3) {
-    	    System.out.println("");
+    	    System.out.println("입력 형식이 올바르지 않습니다.");
     		  continue;
     	  }
     	  
@@ -82,7 +82,7 @@ public class MainController {
         
         //유효성 검사(income 수입금액 항목)
         if(userInputs.length!=3) {
-          System.out.println("");
+          System.out.println("입력 형식이 올바르지 않습니다.");
           continue;
         }
         
@@ -90,12 +90,12 @@ public class MainController {
         try {
           expense = Integer.parseInt(userInputs[1]);
         }catch(NumberFormatException e) {
-          System.out.println("수입금액이 올바른 형식으로 입력되지 않았습니다. 0 이상의 정수를 적어주십시오.");
+          System.out.println("지출금액이 올바른 형식으로 입력되지 않았습니다. 0 이상의 정수를 적어주십시오.");
           continue;
         }
         //예외처리(수입금액은 0 이상이어야함)
         if(expense<0) {
-          System.out.println("수입금액은 0 미만의 음수로 입력될 수 없습니다.");
+          System.out.println("지출금액은 0 미만의 음수로 입력될 수 없습니다.");
           continue;
         }
     	  //BudgetAddService에 addIncome 메소드가 필요합니다.
@@ -104,13 +104,14 @@ public class MainController {
     	  addSrv.addItem(dto);
     	  //명령이 추가되었으므로 다음 항목의 아이디가 될 contentNum의 값을 1 더합니다.
     	  contentNum++;
+    	  System.out.println("성공적으로 등록되었습니다.");
       }
       //3. 내용변경
       else if(userInput.trim().compareToIgnoreCase("edit")==0) {
     	  //클래스 생성 필요
     	  BudgetEditService edtSrv = new BudgetEditService();
     	  //리스트가 하나라도 있는지 확인
-    	  if(!edtSrv.isItemExists()) {
+    	  if(edtSrv.isItemEmpty()) {
           System.out.println("변경할 아이템이 존재하지 않습니다.");
           continue;
         }
@@ -125,6 +126,7 @@ public class MainController {
           userInputNum = Integer.parseInt(userInputs[0]);
         }
         catch(NumberFormatException e) {
+          
           System.out.println("숫자가 입력되지 않았습니다.");
           continue;
         }
@@ -132,7 +134,7 @@ public class MainController {
           System.out.println("올바른 형식으로 입력되지 않았습니다.");
           continue;
         }
-        if(!userInputs[1].equals("수입")||!userInputs[1].equals("지출")) {
+        if(!userInputs[1].equals("수입")&&!userInputs[1].equals("지출")) {
           System.out.println("구분 항목은 수입/지출 하나만 입력할 수 있습니다.");
         }
         try {
@@ -143,12 +145,14 @@ public class MainController {
         }
         
         try {
-          RequestDTO dto = new RequestDTO(contentNums[userInputNum],userInputs[1],money,userInputs[3]);
+          RequestDTO dto = new RequestDTO(contentNums[userInputNum-1],userInputs[1],money,userInputs[3]);
           edtSrv.editItem(dto);
         }catch(ArrayIndexOutOfBoundsException e) {
           System.out.println("항목에 없는 숫자를 입력하셨습니다.");
           continue;
         }//end of try-catch
+        
+        System.out.println("성공적으로 수정되었습니다.");
       }//end of else if
       
       //5. 전체내역출력
@@ -162,7 +166,7 @@ public class MainController {
     	  BudgetDeleteService dltSrv = new BudgetDeleteService();
     	  
     	  //리스트가 하나라도 있는지 확인
-    	  if(!dltSrv.isItemExists()) {
+    	  if(dltSrv.isItemEmpty()) {
     		  System.out.println("삭제할 아이템이 존재하지 않습니다.");
     		  continue;
     	  }
@@ -181,11 +185,14 @@ public class MainController {
     		  continue;
     	  }
     	  try {
-    		  dltSrv.deleteItem(contentNums[userInputNum]);
+    		  dltSrv.deleteItem(contentNums[userInputNum-1]);
     	  }catch(ArrayIndexOutOfBoundsException e) {
     		  System.out.println("항목에 없는 숫자를 입력하셨습니다.");
     		  continue;
     	  }//end of try-catch
+    	  
+    	  System.out.println("정상적으로 삭제되었습니다.");
+    	  
       }//end of else if
       //5. 전체내역출력
       else if(userInput.trim().compareToIgnoreCase("list")==0) {

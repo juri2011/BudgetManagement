@@ -12,6 +12,9 @@ public class BudgetListService {
   public void list() {
     Collection<BudgetVO> list = dao.selectList();
     System.out.println("잔액 : "+dao.getTotBalance());
+    
+    if(dao.isMapEmpty()) System.out.println("항목이 존재하지 않습니다.");
+    
     SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
     list.stream().forEach(vo->{
       String addDate = sdf.format(vo.getAddDate());

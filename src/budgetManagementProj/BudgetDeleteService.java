@@ -14,11 +14,14 @@ public class BudgetDeleteService {
   
   //항목을 삭제하는 메소드입니다.
   public void deleteItem(int contentNum) {
-    dao.remove(contentNum);
+    BudgetVO vo = dao.selectOne(contentNum);
+    if(vo.getDesc().equals("수입")) dao.balanceExpense(vo.getMoney());
+    else dao.balanceIncome(vo.getMoney());
+	dao.remove(contentNum);
   }
 
   //등록된 항목이 있는지 확인하는 메소드입니다. (기본적으로 delete에 있는 그것과 동일)
-  public boolean isItemExists() {
+  public boolean isItemEmpty() {
     return dao.isMapEmpty();
   }
   
@@ -35,6 +38,7 @@ public class BudgetDeleteService {
     int listNum = 1;
     
     System.out.println("삭제할 항목의 번호를 입력해주세요.");
+    System.out.println("[번호]\t[등록일자]\t\t[구분]\t[금액]\t[메모]");
     //list 안에 있는 아이템을 순회
     for(BudgetVO vo : list) {
       //vo에 toString 있으면 좋을듯
@@ -42,8 +46,7 @@ public class BudgetDeleteService {
       SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
       String voDate = sdf.format(vo.getAddDate());
       
-      System.out.println("[번호]\t[등록일자]\t[구분]\t[금액]\t[잔액]\t[메모]");
-      System.out.printf("[%d]\t%s\t%s\t%d\t%s",listNum,voDate, vo.getDesc(), vo.getMoney(), vo.getMemo());
+      System.out.printf("[%d]\t%s\t%s\t%d\t%s\n",listNum,voDate, vo.getDesc(), vo.getMoney(), vo.getMemo());
       
       //MainController에 넘겨줄 contentNumArr에 해당 vo의 contentNum 저장
       contentNumArr[listNum-1] = vo.getContentNum();
