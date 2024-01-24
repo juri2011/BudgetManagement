@@ -15,7 +15,7 @@ public class BudgetListService {
     SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
     list.stream().forEach(vo->{
       String addDate = sdf.format(vo.getAddDate());
-      System.out.println(addDate+ vo.getDesc()+ vo.getMoney()+ vo.getMemo());
+      System.out.println(addDate+ " | " +vo.getDesc()+ " | " +vo.getMoney()+ " | " +vo.getMemo());
     });
   }
 }
