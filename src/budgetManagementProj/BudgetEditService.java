@@ -11,8 +11,8 @@ public class BudgetEditService {
     dao = new BudgetDAO();
   }
   //기존에 등록된 항목을 수정하는 메소드입니다.
-  public void editItem(int contentNum) {
-    BudgetVO vo = dao.selectOne(contentNum);
+  public void editItem(RequestDTO dto) {
+    BudgetVO vo = dao.selectOne(dto.getContentNum());
     dao.update(vo);
   }
   
@@ -33,7 +33,7 @@ public class BudgetEditService {
     //출력은 1부터 한다. 
     int listNum = 1;
 
-    System.out.println("변경할 항목의 번호를 입력해주세요.");
+    System.out.println("변경할 항목의 번호와 변경 내용을 작성해주세요.(번호 구분 금액 메모)");
     //list 안에 있는 아이템을 순회
     for(BudgetVO vo : list) {
       //vo에 toString 있으면 좋을듯

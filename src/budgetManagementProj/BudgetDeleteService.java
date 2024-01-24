@@ -42,7 +42,7 @@ public class BudgetDeleteService {
       SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
       String voDate = sdf.format(vo.getAddDate());
       
-      System.out.println("[번호]\t[등록일자]\t[구분]\t[금액]\t[메모]");
+      System.out.println("[번호]\t[등록일자]\t[구분]\t[금액]\t[잔액]\t[메모]");
       System.out.printf("[%d]\t%s\t%s\t%d\t%s",listNum,voDate, vo.getDesc(), vo.getMoney(), vo.getMemo());
       
       //MainController에 넘겨줄 contentNumArr에 해당 vo의 contentNum 저장

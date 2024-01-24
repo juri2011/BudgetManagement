@@ -1,6 +1,5 @@
 package budgetManagementProj;
 
-import java.util.Date;
 import java.util.Scanner;
 
 public class MainController {
@@ -39,7 +38,6 @@ public class MainController {
     	  
     	  //수입금액의 값을 받아올 int형 변수입니다.
     	  int income;
-    	  String test = userInputs[9];
     	  
     	  //유효성 검사(income 수입금액 항목)
     	  if(userInputs.length!=3) {
@@ -64,7 +62,7 @@ public class MainController {
     	  //그리고 income과 expense를 money라는 이름의 int형 변수로 합쳐서 다루는 것 또한 고려하고 있습니다.
     	  //RequestDTO 생성자의 파라미터 순서도 아래 인자 형식에 맞게 바꾸는 것이 어떨까요?
     	  
-    	  RequestDTO dto = new RequestDTO(contentNum, "수입", income, userInputs[2], new Date());
+    	  RequestDTO dto = new RequestDTO(contentNum, "수입", income, userInputs[2]);
     	  BudgetAddService addSrv = new BudgetAddService();
     	  
     	  //BudgetAddService에 addIncome 메소드가 필요합니다.
@@ -79,10 +77,28 @@ public class MainController {
     	  int expense;
     	  
     	  //아래 들어갈 내용은 기본적으로 income 명령어와 같습니다.
-    	  BudgetAddService addSrv = new BudgetAddService();
-    	  
+    	  //수입금액의 값을 받아올 int형 변수입니다.
+        
+        //유효성 검사(income 수입금액 항목)
+        if(userInputs.length!=3) {
+          System.out.println("");
+          continue;
+        }
+        
+        //예외처리(수입금액이 정수로 입력되지 않았을 경우)
+        try {
+          expense = Integer.parseInt(userInputs[1]);
+        }catch(NumberFormatException e) {
+          System.out.println("수입금액이 올바른 형식으로 입력되지 않았습니다. 0 이상의 정수를 적어주십시오.");
+          continue;
+        }
+        //예외처리(수입금액은 0 이상이어야함)
+        if(expense<0) {
+          System.out.println("수입금액은 0 미만의 음수로 입력될 수 없습니다.");
+          continue;
+        }
     	  //BudgetAddService에 addIncome 메소드가 필요합니다.
-    	  RequestDTO dto = new RequestDTO(contentNum, "지출", expense, userInputs[2], new Date());
+    	  RequestDTO dto = new RequestDTO(contentNum, "지출", expense, userInputs[2]);
     	  BudgetAddService addSrv = new BudgetAddService();
     	  addSrv.addItem(dto);
     	  //명령이 추가되었으므로 다음 항목의 아이디가 될 contentNum의 값을 1 더합니다.
@@ -100,17 +116,34 @@ public class MainController {
     	  //리스트를 보여준다
     	  int[] contentNums = edtSrv.showAllItemsWithNum();
     	  userInput = sc.nextLine();
-        int userInputNum;
+        userInputs = userInput.split(" ");
+    	  int userInputNum;
+    	  int money;
         
         try {
-          userInputNum = Integer.parseInt(userInput);
+          userInputNum = Integer.parseInt(userInputs[0]);
         }
         catch(NumberFormatException e) {
           System.out.println("숫자가 입력되지 않았습니다.");
           continue;
         }
+        if(userInputs.length!=4) {
+          System.out.println("올바른 형식으로 입력되지 않았습니다.");
+          continue;
+        }
+        if(!userInputs[1].equals("수입")||!userInputs[1].equals("지출")) {
+          System.out.println("구분 항목은 수입/지출 하나만 입력할 수 있습니다.");
+        }
         try {
-          edtSrv.editItem(contentNums[userInputNum]);
+          money = Integer.parseInt(userInputs[2]);
+        }catch(NumberFormatException e) {
+          System.out.println("금액이 올바른 형식으로 입력되지 않았습니다. 0 이상의 정수를 적어주십시오.");
+          continue;
+        }
+        
+        try {
+          RequestDTO dto = new RequestDTO(contentNums[userInputNum],userInputs[1],money,userInputs[3]);
+          edtSrv.editItem(dto);
         }catch(ArrayIndexOutOfBoundsException e) {
           System.out.println("항목에 없는 숫자를 입력하셨습니다.");
           continue;
@@ -135,8 +168,6 @@ public class MainController {
     	  //전체 리스트에 번호를 주어 선택하게 하는 메소드 필요
     	  //이 메소드는 각 아이템의 contentNum이 담겨있는 int형 배열을 반환한다.
     	  int[] contentNums = dltSrv.showAllItemsWithNum();
-    	  
-    	  
     	  
     	  userInput = sc.nextLine();
     	  int userInputNum;
