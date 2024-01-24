@@ -25,3 +25,23 @@ dao에서 맵의 키값으로 Integer 형태를 받는데, service에서 전달�
 DTO/DAO/VO->add->list->info
 delete->change->maincontroller
 
+
+
+2024-01-25
+
+1. 기본적인 기능 구현 완료했습니다. (edit, delete, info) -> 바로 테스트 가능!
+
+2. vo에 toString 있으면 좋을 것 같아요(서비스 클래스 출력문에서 getter로 변수 일일이 가져오기가 좀 번거로움)
+
+3. 출력문이 조금 더 이뻤으면 좋겠어요
+
+4. exceptionClass 생성 필요
+
+5. 사용자가 add/edit/delete 작업을 할 때 date를 지정하는 작업 필요할까요?(개발 난이도: 상, 예상 시간: 4시간 정도, 하지만 완성된다면 굉장히 만족스러울것)
+	필요한 작업
+	-DTO 구조에 addDate를 추가해야합니다.(1분소요)
+	-maincotroller 수정 작업도 필요합니다.(1시간 소요)
+	-사용자가 날짜를 바른 형식으로 지정했는지도 확인해줘야 합니다(1시간 소요)
+	-edit, delete, list, info 등 출력문에서 날짜 순으로 정렬할 필요가 있습니다.(1시간 소요)
+
+	-> 코드의 중간규모 수정이 필요할 듯 합니다...(이 작업을 하게 된다면 branch를 따로 만들어서 하는게 좋을 것 같아요)
