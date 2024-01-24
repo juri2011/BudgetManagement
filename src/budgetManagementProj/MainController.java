@@ -1,6 +1,6 @@
 package budgetManagementProj;
 
-import java.sql.Date;
+import java.util.Date;
 import java.util.Scanner;
 
 public class MainController {
@@ -40,11 +40,13 @@ public class MainController {
     	  //수입금액의 값을 받아올 int형 변수입니다.
     	  int income;
     	  String test = userInputs[9];
+    	  
     	  //유효성 검사(income 수입금액 항목)
     	  if(userInputs.length!=3) {
-    		  System.out.println("");
+    	    System.out.println("");
     		  continue;
     	  }
+    	  
     	  //예외처리(수입금액이 정수로 입력되지 않았을 경우)
     	  try {
     		  income = Integer.parseInt(userInputs[1]);
@@ -62,7 +64,7 @@ public class MainController {
     	  //그리고 income과 expense를 money라는 이름의 int형 변수로 합쳐서 다루는 것 또한 고려하고 있습니다.
     	  //RequestDTO 생성자의 파라미터 순서도 아래 인자 형식에 맞게 바꾸는 것이 어떨까요?
     	  
-    	  RequestDTO dto = new RequestDTO(contentNum, "수입", userInputs[1], userInputs[2], new Date());
+    	  RequestDTO dto = new RequestDTO(contentNum, "수입", income, userInputs[2], new Date());
     	  BudgetAddService addSrv = new BudgetAddService();
     	  
     	  //BudgetAddService에 addIncome 메소드가 필요합니다.
@@ -80,7 +82,7 @@ public class MainController {
     	  BudgetAddService addSrv = new BudgetAddService();
     	  
     	  //BudgetAddService에 addIncome 메소드가 필요합니다.
-    	  RequestDTO dto = new RequestDTO(contentNum, "지출", userInputs[1], userInputs[2], new Date());
+    	  RequestDTO dto = new RequestDTO(contentNum, "지출", expense, userInputs[2], new Date());
     	  BudgetAddService addSrv = new BudgetAddService();
     	  addSrv.addItem(dto);
     	  //명령이 추가되었으므로 다음 항목의 아이디가 될 contentNum의 값을 1 더합니다.
