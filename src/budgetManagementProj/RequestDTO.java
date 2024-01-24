@@ -10,18 +10,17 @@ public class RequestDTO {
   private int balance;
   private String desc;
   private int money;
-  private Date addDate;
   private String memo;
 
   
   
   //생성자 함수 작성.
-  public RequestDTO(int contentNum, String desc, int money,String memo, Date addDate) {
+  public RequestDTO(int contentNum, String desc, int money,String memo) {
     this.contentNum = contentNum;
     this.desc = desc;
     this.money = money;
     this.memo = memo;
-    this.addDate = addDate;    
+       
   }
 
 
@@ -72,17 +71,6 @@ public class RequestDTO {
     this.money = money;
   }
 
-
-
-  public Date getAddDate() {
-    return addDate;
-  }
-
-
-
-  public void setAddDate(Date addDate) {
-    this.addDate = addDate;
-  }
 
 
 

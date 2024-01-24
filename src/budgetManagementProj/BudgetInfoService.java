@@ -1,5 +1,7 @@
 package budgetManagementProj;
 
+import java.util.Date;
+
 public class BudgetInfoService {
   private BudgetDAO dao;
   public BudgetInfoService() {
@@ -8,7 +10,9 @@ public class BudgetInfoService {
   //Info에서는 contentNum을 출력하지 않습니다.
   
   //vo.desc.equals("수입")에 해당하는 vo만 출력
-  public void infoIncome() {}
+  public void infoIncome(RequestDTO dto) {
+    BudgetVO vo = new BudgetVO(dto.getContentNum(),dto.getDesc(), dto.getMoney(), dto.getMemo(), new Date());
+  }
   //vo.desc.equals("지출")에 해당하는 vo만 출력
   public void infoExpense() {}
   //vo.memo.equals(memo)에 해당하는 vo만 출력
