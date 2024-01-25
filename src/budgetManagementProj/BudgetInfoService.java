@@ -16,19 +16,19 @@ public class BudgetInfoService {
     if(list.isEmpty()) System.out.println("해당 항목이 존재하지 않습니다.");
     
     //총 수입금액을 출력하기 위해 값을 담을 변수
-    int totIncome = 0;
+    long totIncome = 0;
     int listNum = 1;
-    System.out.println("[번호]\t[등록일자]\t\t[구분]\t[금액]\t[메모]");
-    
+    System.out.println(String.format("%s %10s\t%6s %-20s\t%-20s", "[번호]", "[등록일자]", " [구분]", "  [금액]", "[메모]"));
+    //list 안에 있는 아이템을 순회
     for(BudgetVO vo : list) {
       //vo에 toString 있으면 좋을듯
       //System.out.println(vo.toString());
-      if(vo.getDesc().equals("지출")) continue;
-      totIncome+=vo.getMoney();
       SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
       String voDate = sdf.format(vo.getAddDate());
-      System.out.printf("[%d]\t%s\t%s\n",listNum,voDate, vo.getDesc(),vo.toString());
       
+      System.out.printf("[%d]\t%s\t%s\n",listNum, voDate, vo.toString());
+      
+      //MainController에 넘겨줄 contentNumArr에 해당 vo의 contentNum 저장
       listNum++;
     }
     System.out.println("총 수입 금액 : "+totIncome);
@@ -39,20 +39,19 @@ public class BudgetInfoService {
 	    if(list.isEmpty()) System.out.println("해당 항목이 존재하지 않습니다.");
 	    
 	    //총 수입금액을 출력하기 위해 값을 담을 변수
-	    int totExpense = 0;
+	    long totExpense = 0;
 	    int listNum = 1;
-	    System.out.println("[번호]\t[등록일자]\t\t[구분]\t[금액]\t[메모]");
-	    
+	    System.out.println(String.format("%s %10s\t%6s %-20s\t%-20s", "[번호]", "[등록일자]", " [구분]", "  [금액]", "[메모]"));
+	    //list 안에 있는 아이템을 순회
 	    for(BudgetVO vo : list) {
 	      //vo에 toString 있으면 좋을듯
 	      //System.out.println(vo.toString());
-	      if(vo.getDesc().equals("수입")) continue;
-	      totExpense+=vo.getMoney();
 	      SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 	      String voDate = sdf.format(vo.getAddDate());
 	      
-	      System.out.printf("[%d]\t%s\t%s\t%d\t%s\n",listNum,voDate, vo.getDesc(), vo.getMoney(), vo.getMemo());
+	      System.out.printf("[%d]\t%s\t%s\n",listNum, voDate, vo.toString());
 	      
+	      //MainController에 넘겨줄 contentNumArr에 해당 vo의 contentNum 저장
 	      listNum++;
 	    }
 	    
@@ -65,8 +64,8 @@ public class BudgetInfoService {
 	    if(list.isEmpty()) System.out.println("해당 항목이 존재하지 않습니다.");
 	    
 	    //총 수입금액을 출력하기 위해 값을 담을 변수
-	    int totIncome = 0;
-	    int totExpense = 0;
+	    long totIncome = 0;
+	    long totExpense = 0;
 	    int listNum = 1;
 	    System.out.println("총 수입 금액 : "+totIncome+"\t 총 지출 금액 : "+totExpense);
 	    System.out.println(String.format("%s %10s\t%6s %-20s\t%-20s", "[번호]", "[등록일자]", " [구분]", "  [금액]", "[메모]"));
