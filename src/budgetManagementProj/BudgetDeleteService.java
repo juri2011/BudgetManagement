@@ -1,9 +1,7 @@
 package budgetManagementProj;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
 
 public class BudgetDeleteService {
   private BudgetDAO dao;
@@ -29,7 +27,6 @@ public class BudgetDeleteService {
   public int[] showAllItemsWithNum() {
     
     Collection<BudgetVO> list = dao.selectList();
-    List<BudgetVO> budList = new ArrayList<BudgetVO>();
     
     //항목의 크기대로 배열을 생성함
     int [] contentNumArr = new int[list.size()];
@@ -46,7 +43,7 @@ public class BudgetDeleteService {
       SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
       String voDate = sdf.format(vo.getAddDate());
       
-      System.out.printf("[%d]\t%s\t%s\t%d\t%s\n",listNum,voDate, vo.getDesc(), vo.getMoney(), vo.getMemo());
+      System.out.printf("[%d]\t%s\t%s\n",listNum, voDate, vo.toString());
       
       //MainController에 넘겨줄 contentNumArr에 해당 vo의 contentNum 저장
       contentNumArr[listNum-1] = vo.getContentNum();

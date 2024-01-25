@@ -121,17 +121,16 @@ public class MainController {
         userInputs = userInput.split(" ");
     	  int userInputNum;
     	  int money;
-        
+    	  if(userInputs.length!=4) {
+    	    System.out.println("올바른 형식으로 입력되지 않았습니다.");
+    	    continue;
+    	  }
         try {
           userInputNum = Integer.parseInt(userInputs[0]);
         }
         catch(NumberFormatException e) {
           
           System.out.println("숫자가 입력되지 않았습니다.");
-          continue;
-        }
-        if(userInputs.length!=4) {
-          System.out.println("올바른 형식으로 입력되지 않았습니다.");
           continue;
         }
         if(!userInputs[1].equals("수입")&&!userInputs[1].equals("지출")) {

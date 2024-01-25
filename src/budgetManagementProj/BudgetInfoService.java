@@ -27,7 +27,7 @@ public class BudgetInfoService {
       totIncome+=vo.getMoney();
       SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
       String voDate = sdf.format(vo.getAddDate());
-      System.out.printf("[%d]\t%s\t%s\t%d\t%s\n",listNum,voDate, vo.getDesc(), vo.getMoney(), vo.getMemo());
+      System.out.printf("[%d]\t%s\t%s\n",listNum,voDate, vo.getDesc(),vo.toString());
       
       listNum++;
     }
