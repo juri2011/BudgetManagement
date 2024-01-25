@@ -15,7 +15,8 @@ public class RequestDTO {
   
   
   //생성자 함수 작성.
-  public RequestDTO(int contentNum, String desc, int money,String memo) {
+  public RequestDTO(int contentNum, String desc, int money,String memo) throws MinusMoneyException{
+    if(money<0) throw new MinusMoneyException();
     this.contentNum = contentNum;
     this.desc = desc;
     this.money = money;

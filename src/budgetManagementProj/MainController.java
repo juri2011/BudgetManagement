@@ -53,25 +53,21 @@ public class MainController {
     		  continue;
     	  }
     	  //예외처리(수입금액은 0 이상이어야함)
-    	  if(income<0) {
-    		  System.out.println("수입금액은 0 미만의 음수로 입력될 수 없습니다.");
-    		  continue;
+    	  try {
+    	    RequestDTO dto = new RequestDTO(contentNum, "수입", income, userInputs[2]);
+    	    BudgetAddService addSrv = new BudgetAddService();
+    	  
+    	    //BudgetAddService에 addIncome 메소드가 필요합니다.
+    	    addSrv.addItem(dto);
+    	  
+    	    //명령이 추가되었으므로 다음 항목의 아이디가 될 contentNum의 값을 1 더합니다.
+    	    contentNum++;
+    	    System.out.println("성공적으로 등록되었습니다.");
+    	  }catch(MinusMoneyException e) {
+    	    System.out.println("에러가 발생했습니다! 원인: "+e.getMessage());
+    	    continue;
     	  }
     	  
-    	  //RequestDTO에서 balance 멤버변수를 삭제할 것을 고려하고 있습니다.
-    	  //그리고 income과 expense를 money라는 이름의 int형 변수로 합쳐서 다루는 것 또한 고려하고 있습니다.
-    	  //RequestDTO 생성자의 파라미터 순서도 아래 인자 형식에 맞게 바꾸는 것이 어떨까요?
-    	  
-    	  RequestDTO dto = new RequestDTO(contentNum, "수입", income, userInputs[2]);
-    	  BudgetAddService addSrv = new BudgetAddService();
-    	  
-    	  //BudgetAddService에 addIncome 메소드가 필요합니다.
-    	  addSrv.addItem(dto);
-    	  
-    	  //명령이 추가되었으므로 다음 항목의 아이디가 될 contentNum의 값을 1 더합니다.
-    	  contentNum++;
-    	  
-    	  System.out.println("성공적으로 등록되었습니다.");
       }
       //2. 지출추가
       else if(userInput.startsWith("expense")) {
@@ -94,17 +90,17 @@ public class MainController {
           continue;
         }
         //예외처리(수입금액은 0 이상이어야함)
-        if(expense<0) {
-          System.out.println("지출금액은 0 미만의 음수로 입력될 수 없습니다.");
-          continue;
+        try {
+          RequestDTO dto = new RequestDTO(contentNum, "지출", expense, userInputs[2]);
+    	    BudgetAddService addSrv = new BudgetAddService();
+    	    addSrv.addItem(dto);
+    	    //명령이 추가되었으므로 다음 항목의 아이디가 될 contentNum의 값을 1 더합니다.
+    	    contentNum++;
+    	    System.out.println("성공적으로 등록되었습니다.");
+        }catch(MinusMoneyException e) {
+          System.out.println("에러가 발생했습니다! 원인: "+e.getMessage());
         }
-    	  //BudgetAddService에 addIncome 메소드가 필요합니다.
-    	  RequestDTO dto = new RequestDTO(contentNum, "지출", expense, userInputs[2]);
-    	  BudgetAddService addSrv = new BudgetAddService();
-    	  addSrv.addItem(dto);
-    	  //명령이 추가되었으므로 다음 항목의 아이디가 될 contentNum의 값을 1 더합니다.
-    	  contentNum++;
-    	  System.out.println("성공적으로 등록되었습니다.");
+    	 
       }
       //3. 내용변경
       else if(userInput.trim().compareToIgnoreCase("edit")==0) {
@@ -146,12 +142,14 @@ public class MainController {
         try {
           RequestDTO dto = new RequestDTO(contentNums[userInputNum-1],userInputs[1],money,userInputs[3]);
           edtSrv.editItem(dto);
+          System.out.println("성공적으로 수정되었습니다.");
         }catch(ArrayIndexOutOfBoundsException e) {
           System.out.println("항목에 없는 숫자를 입력하셨습니다.");
-          continue;
-        }//end of try-catch
+        }catch(MinusMoneyException e) {
+          System.out.println("에러가 발생했습니다! 원인: "+e.getMessage());
+        }
+        //end of try-catch
         
-        System.out.println("성공적으로 수정되었습니다.");
       }//end of else if
       
       //5. 전체내역출력
@@ -206,20 +204,15 @@ public class MainController {
     	  BudgetInfoService infoSrv = new BudgetInfoService();
     	  
     	  if(userInput.equals("수입")) {
-    		  //메소드 필요
     		  infoSrv.infoIncome();
     	  }
     	  else if(userInput.equals("지출")) {
-    		  //메소드 필요
     		  infoSrv.infoExpense();
     	  }
     	  else if(userInput.equals("항목")) {
     		  System.out.println("출력하고 싶은 항목을 입력해주세요.");
     		  userInput = sc.nextLine();
-    		  //해당 메소드에서 항목이 있는지 확인하고, 처리
-    		  //메소드 필요
     		  infoSrv.infoMemo(userInput);
-    		  
     	  }
     	  else {
     		  System.out.println("잘못 입력하셨습니다.");
