@@ -30,7 +30,7 @@ public class BudgetVO {
   @Override
   public String toString() {
     //return ""+ desc +"  |  "+money+"  |  "+ memo +"";
-    return String.format("%s  %20s \t%-20s", desc, money, memo);
+    return String.format("%6s  %-20s \t%-20s", desc, money, memo);
   }
   
   //Getter and Setter
