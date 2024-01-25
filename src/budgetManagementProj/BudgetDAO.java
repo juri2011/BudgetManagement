@@ -7,7 +7,7 @@ import java.util.Map;
 public class BudgetDAO {
   //저장될 데이터: 잔액(int), 수입(int), 지출수입(int), 기입날짜(Date), 항목(String)
   //데이터베이스 저장소 역할을 대행하는 Map 객체  
-  private static int totBalance = 0;
+  private static long totBalance = 0;
   private static Map<Integer, BudgetVO> budMap = new HashMap<Integer, BudgetVO>();
   
   //desc값을 더하는 수입 메소드
@@ -26,7 +26,7 @@ public class BudgetDAO {
   }
   
   //MemberVO 의 총잔액을 받아와서 리턴하는 함수
-  public int getTotBalance() {
+  public long getTotBalance() {
     return totBalance;
   }
   
