@@ -9,13 +9,13 @@ public class RequestDTO {
   private int contentNum;
   private int balance;
   private String desc;
-  private int money;
+  private long money;
   private String memo;
 
   
   
   //생성자 함수 작성.
-  public RequestDTO(int contentNum, String desc, int money,String memo) throws MinusMoneyException{
+  public RequestDTO(int contentNum, String desc, long money,String memo) throws MinusMoneyException{
     if(money<0) throw new MinusMoneyException();
     this.contentNum = contentNum;
     this.desc = desc;
@@ -62,13 +62,13 @@ public class RequestDTO {
 
 
 
-  public int getMoney() {
+  public long getMoney() {
     return money;
   }
 
 
 
-  public void setMoney(int money) {
+  public void setMoney(long money) {
     this.money = money;
   }
 

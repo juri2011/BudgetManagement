@@ -12,14 +12,14 @@ public class BudgetVO {
   //항목
   private String desc;
   //money (수입/지출 토탈)
-  private int money;
+  private long money;
   //메모
   private String memo;
   //기입일
   private Date addDate;
   
   
-  public BudgetVO(int contentNum, String desc, int money, String memo, Date addDate) {
+  public BudgetVO(int contentNum, String desc, long money, String memo, Date addDate) {
     this.contentNum = contentNum;
     this.desc = desc;
     this.money = money;
@@ -34,10 +34,10 @@ public class BudgetVO {
   }
   
   //Getter and Setter
-  public int getMoney() {
+  public long getMoney() {
     return money;
   }
-  public void setMoney(int money) {
+  public void setMoney(long money) {
     this.money = money;
   }
   

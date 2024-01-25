@@ -11,12 +11,12 @@ public class BudgetDAO {
   private static Map<Integer, BudgetVO> budMap = new HashMap<Integer, BudgetVO>();
   
   //desc값을 더하는 수입 메소드
-  public void balanceIncome(int money) {
+  public void balanceIncome(long money) {
     totBalance += money;
   }
   
   //desc값을 빼는 지출 메소드
-  public void balanceExpense(int money) {
+  public void balanceExpense(long money) {
     totBalance -= money;
   }
   
