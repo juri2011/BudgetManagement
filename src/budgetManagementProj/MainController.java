@@ -10,7 +10,7 @@ public class MainController {
     System.out.println("3. 내용 변경 : edit");
     System.out.println("4. 내용 삭제 : delete");
     System.out.println("5. 전체 내역 출력 : list");
-    System.out.println("6. 항목별 출력 : info 수입/지출/항목");
+    System.out.println("6. 항목별 출력 : info");
     System.out.println("7. 도움말 : help");
     System.out.println("8. 종료 : exit");
     System.out.println();
