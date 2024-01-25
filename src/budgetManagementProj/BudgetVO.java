@@ -27,6 +27,10 @@ public class BudgetVO {
     this.addDate = addDate;
   }
   
+  @Override
+  public String toString() {
+    return "BudgetVO [ desc="+ desc +",  money="+money+", memo="+ memo +"]";
+  }
   
   //Getter and Setter
   public int getMoney() {
