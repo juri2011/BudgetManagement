@@ -73,7 +73,8 @@ public class BudgetInfoService {
 	    for(BudgetVO vo : list) {
 	      //vo에 toString 있으면 좋을듯
 	      //System.out.println(vo.toString());
-	      if(!vo.getMemo().equals(memo)) continue;
+	      //.contains() : 문자열 포함 여부 확인
+	      if(vo.getMemo().indexOf(memo)<0) continue;
 	      if(vo.getDesc().equals("수입")) totIncome+=vo.getMoney();
 	      if(vo.getDesc().equals("지출")) totExpense+=vo.getMoney();
 	      SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
