@@ -35,7 +35,7 @@ public class BudgetDeleteService {
     int listNum = 1;
     
     System.out.println("삭제할 항목의 번호를 입력해주세요.");
-    System.out.println("[번호]\t[등록일자]\t\t[구분]\t[금액]\t[메모]");
+    System.out.println(String.format("%s %10s\t%6s %-20s\t%-20s", "[번호]", "[등록일자]", " [구분]", "  [금액]", "[메모]"));
     //list 안에 있는 아이템을 순회
     for(BudgetVO vo : list) {
       //vo에 toString 있으면 좋을듯

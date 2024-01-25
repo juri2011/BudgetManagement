@@ -47,8 +47,6 @@ public class BudgetEditService {
 
     System.out.println("변경할 항목의 번호와 새로 적용될 내용을 작성해주세요.(번호 구분 금액 메모)");
     //list 안에 있는 아이템을 순회
-    //System.out.println("[번호]\t[등록일자]\t\t[구분]\t[금액]\t[메모]");    
-    //System.out.println(String.format("[번호]\t[등록일자]\t%s  %20s \t%-20s","[구분]","[금액]","[메모]"));
     System.out.println(String.format("%s %10s\t%6s %-20s\t%-20s", "[번호]", "[등록일자]", " [구분]", "  [금액]", "[메모]"));
     for(BudgetVO vo : list) {
       //vo에 toString 있으면 좋을듯
