@@ -69,7 +69,7 @@ public class BudgetInfoService {
 	    int totExpense = 0;
 	    int listNum = 1;
 	    System.out.println("총 수입 금액 : "+totIncome+"\t 총 지출 금액 : "+totExpense);
-	    System.out.println("[번호]\t[등록일자]\t\t[구분]\t[금액]\t[메모]");
+	    System.out.println(String.format("%s %10s\t%6s %-20s\t%-20s", "[번호]", "[등록일자]", " [구분]", "  [금액]", "[메모]"));
 	    
 	    for(BudgetVO vo : list) {
 	      //vo에 toString 있으면 좋을듯
@@ -80,7 +80,7 @@ public class BudgetInfoService {
 	      SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 	      String voDate = sdf.format(vo.getAddDate());
 	      
-	      System.out.printf("[%d]\t%s\t%s\t%d\t%s\n",listNum,voDate, vo.getDesc(), vo.getMoney(), vo.getMemo());
+	      System.out.printf("[%d]\t%s\t%s\n",listNum,voDate,vo.toString());
 	      
 	      listNum++;
 	    }

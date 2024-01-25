@@ -45,7 +45,7 @@ public class MainController {
     	  //예외처리(수입금액이 정수로 입력되지 않았을 경우)
     	  try {
     	    //수입금액의 값을 받아올 int형 변수입니다.
-    	    int money = Integer.parseInt(userInputs[1]);
+    	    long money = Long.parseLong(userInputs[1]);
     		  RequestDTO dto = new RequestDTO(contentNum, "수입", money, userInputs[2]);
     	    BudgetAddService addSrv = new BudgetAddService();
     	  
@@ -79,7 +79,7 @@ public class MainController {
         
         //예외처리(수입금액이 정수로 입력되지 않았을 경우)
         try {
-          int money = Integer.parseInt(userInputs[1]);
+          long money = Long.parseLong(userInputs[1]);
           RequestDTO dto = new RequestDTO(contentNum, "지출", money, userInputs[2]);
     	    BudgetAddService addSrv = new BudgetAddService();
     	    addSrv.addItem(dto);
@@ -108,7 +108,7 @@ public class MainController {
     	  userInput = sc.nextLine();
         userInputs = userInput.split(" ");
     	  int userInputNum;
-    	  int money;
+    	  long money;
     	  if(userInputs.length!=4) {
     	    System.out.println("올바른 형식으로 입력되지 않았습니다.");
     	    continue;
@@ -125,7 +125,7 @@ public class MainController {
           System.out.println("구분은 수입/지출 하나만 입력할 수 있습니다.");
         }
         try {
-          money = Integer.parseInt(userInputs[2]);
+          money = Long.parseLong(userInputs[2]);
         }catch(NumberFormatException e) {
           System.out.println("금액이 올바른 형식으로 입력되지 않았습니다. 0 이상의 정수를 적어주십시오.");
           continue;

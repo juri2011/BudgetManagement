@@ -15,10 +15,18 @@ public class BudgetListService {
     
     if(dao.isMapEmpty()) System.out.println("항목이 존재하지 않습니다.");
     
-    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-    list.stream().forEach(vo->{
-      String addDate = sdf.format(vo.getAddDate());
-      System.out.println(addDate+ " | " +vo.getDesc()+ " | " +vo.getMoney()+ " | " +vo.getMemo());
-    });
+    int listNum = 1;
+    
+    System.out.println(String.format("%s %10s\t%6s %-20s\t%-20s", "[번호]", "[등록일자]", " [구분]", "  [금액]", "[메모]"));
+    for(BudgetVO vo : list) {
+      //vo에 toString 있으면 좋을듯
+      //System.out.println(vo.toString());
+      SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+      String voDate = sdf.format(vo.getAddDate());
+      
+      System.out.printf("[%d]\t%s\t%s\n",listNum,voDate,vo.toString());
+      
+      listNum++;
+    }
   }
 }
