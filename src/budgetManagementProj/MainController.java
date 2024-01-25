@@ -36,9 +36,6 @@ public class MainController {
       //1. 수입추가
       if(userInput.startsWith("income")) {
     	  
-    	  //수입금액의 값을 받아올 int형 변수입니다.
-    	  int income;
-    	  
     	  //유효성 검사(income 수입금액 항목)
     	  if(userInputs.length!=3) {
     	    System.out.println("입력 형식이 올바르지 않습니다.");
@@ -47,14 +44,9 @@ public class MainController {
     	  
     	  //예외처리(수입금액이 정수로 입력되지 않았을 경우)
     	  try {
-    		  income = Integer.parseInt(userInputs[1]);
-    	  }catch(NumberFormatException e) {
-    		  System.out.println("수입금액이 올바른 형식으로 입력되지 않았습니다. 0 이상의 정수를 적어주십시오.");
-    		  continue;
-    	  }
-    	  //예외처리(수입금액은 0 이상이어야함)
-    	  try {
-    	    RequestDTO dto = new RequestDTO(contentNum, "수입", income, userInputs[2]);
+    	    //수입금액의 값을 받아올 int형 변수입니다.
+    	    int money = Integer.parseInt(userInputs[1]);
+    		  RequestDTO dto = new RequestDTO(contentNum, "수입", money, userInputs[2]);
     	    BudgetAddService addSrv = new BudgetAddService();
     	  
     	    //BudgetAddService에 addIncome 메소드가 필요합니다.
@@ -63,7 +55,10 @@ public class MainController {
     	    //명령이 추가되었으므로 다음 항목의 아이디가 될 contentNum의 값을 1 더합니다.
     	    contentNum++;
     	    System.out.println("성공적으로 등록되었습니다.");
-    	  }catch(MinusMoneyException e) {
+    	  }catch(NumberFormatException e) {
+    		  System.out.println("수입금액이 올바른 형식으로 입력되지 않았습니다. 0 이상의 정수를 적어주십시오.");
+    		  continue;
+    	  }catch(MinusMoneyException e) {//예외처리(수입금액은 0 이상이어야함)
     	    System.out.println("에러가 발생했습니다! 원인: "+e.getMessage());
     	    continue;
     	  }
@@ -71,7 +66,7 @@ public class MainController {
       }
       //2. 지출추가
       else if(userInput.startsWith("expense")) {
-    	  int expense;
+    	  
     	  
     	  //아래 들어갈 내용은 기본적으로 income 명령어와 같습니다.
     	  //수입금액의 값을 받아올 int형 변수입니다.
@@ -84,19 +79,16 @@ public class MainController {
         
         //예외처리(수입금액이 정수로 입력되지 않았을 경우)
         try {
-          expense = Integer.parseInt(userInputs[1]);
-        }catch(NumberFormatException e) {
-          System.out.println("지출금액이 올바른 형식으로 입력되지 않았습니다. 0 이상의 정수를 적어주십시오.");
-          continue;
-        }
-        //예외처리(수입금액은 0 이상이어야함)
-        try {
-          RequestDTO dto = new RequestDTO(contentNum, "지출", expense, userInputs[2]);
+          int money = Integer.parseInt(userInputs[1]);
+          RequestDTO dto = new RequestDTO(contentNum, "지출", money, userInputs[2]);
     	    BudgetAddService addSrv = new BudgetAddService();
     	    addSrv.addItem(dto);
     	    //명령이 추가되었으므로 다음 항목의 아이디가 될 contentNum의 값을 1 더합니다.
     	    contentNum++;
     	    System.out.println("성공적으로 등록되었습니다.");
+        }catch(NumberFormatException e) {
+          System.out.println("지출금액이 올바른 형식으로 입력되지 않았습니다. 0 이상의 정수를 적어주십시오.");
+          continue;
         }catch(MinusMoneyException e) {
           System.out.println("에러가 발생했습니다! 원인: "+e.getMessage());
         }
@@ -104,7 +96,7 @@ public class MainController {
       }
       //3. 내용변경
       else if(userInput.trim().compareToIgnoreCase("edit")==0) {
-    	  //클래스 생성 필요
+        
     	  BudgetEditService edtSrv = new BudgetEditService();
     	  //리스트가 하나라도 있는지 확인
     	  if(edtSrv.isItemEmpty()) {
@@ -130,7 +122,7 @@ public class MainController {
           continue;
         }
         if(!userInputs[1].equals("수입")&&!userInputs[1].equals("지출")) {
-          System.out.println("구분 항목은 수입/지출 하나만 입력할 수 있습니다.");
+          System.out.println("구분은 수입/지출 하나만 입력할 수 있습니다.");
         }
         try {
           money = Integer.parseInt(userInputs[2]);
@@ -152,12 +144,6 @@ public class MainController {
         
       }//end of else if
       
-      //5. 전체내역출력
-      else if(userInput.trim().compareToIgnoreCase("list")==0) {
-        BudgetListService lstSrv = new BudgetListService();
-        //메소드 필요
-        lstSrv.list();
-      }
       //4. 내용삭제
       else if(userInput.trim().compareToIgnoreCase("delete")==0) {
     	  BudgetDeleteService dltSrv = new BudgetDeleteService();
@@ -176,19 +162,15 @@ public class MainController {
     	  
     	  try {
     		  userInputNum = Integer.parseInt(userInput);
+    		  dltSrv.deleteItem(contentNums[userInputNum-1]);
+    		  System.out.println("정상적으로 삭제되었습니다.");
     	  }
     	  catch(NumberFormatException e) {
     		  System.out.println("숫자가 입력되지 않았습니다.");
-    		  continue;
-    	  }
-    	  try {
-    		  dltSrv.deleteItem(contentNums[userInputNum-1]);
     	  }catch(ArrayIndexOutOfBoundsException e) {
     		  System.out.println("항목에 없는 숫자를 입력하셨습니다.");
-    		  continue;
     	  }//end of try-catch
     	  
-    	  System.out.println("정상적으로 삭제되었습니다.");
     	  
       }//end of else if
       //5. 전체내역출력
@@ -231,6 +213,7 @@ public class MainController {
       }
       //명령어 잘 못 입력되었을 때
       else {
+        System.out.println("올바른 명령어를 입력해주세요.");
     	  //사용자가 명령어를 몰라서 잘 못 입력했을 수도 있으므로 help를 띄워주는 게 좋을 것 같습니다
     	  help();
     	  continue;
