@@ -123,6 +123,7 @@ public class MainController {
         }
         if(!userInputs[1].equals("수입")&&!userInputs[1].equals("지출")) {
           System.out.println("구분은 수입/지출 하나만 입력할 수 있습니다.");
+          continue;
         }
         try {
           money = Long.parseLong(userInputs[2]);
