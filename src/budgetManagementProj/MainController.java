@@ -181,7 +181,7 @@ public class MainController {
     	  lstSrv.list();
       }
       //6. 항목별출력
-      else if(userInput.startsWith("info")) {
+      else if(userInput.trim().compareToIgnoreCase("info")==0) {
     	  System.out.println("출력하고 싶은 그룹을 입력해주세요. 수입/지출/항목");
     	  userInput = sc.nextLine();
     	  BudgetInfoService infoSrv = new BudgetInfoService();
