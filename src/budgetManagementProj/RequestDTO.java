@@ -1,7 +1,5 @@
 package budgetManagementProj;
 
-import java.util.Date;
-
 public class RequestDTO {
   
   //사용자로부터 전달받은 데이터 저장클래스 
