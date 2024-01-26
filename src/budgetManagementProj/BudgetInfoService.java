@@ -76,7 +76,6 @@ public class BudgetInfoService {
 	    long totIncome = 0;
 	    long totExpense = 0;
 	    int listNum = 1;
-	    System.out.println("총 수입 금액 : "+totIncome+"\t 총 지출 금액 : "+totExpense);
 	    System.out.println(String.format("%s %10s\t%6s %-20s\t%-20s", "[번호]", "[등록일자]", " [구분]", "  [금액]", "[메모]"));
 	    
 	    for(BudgetVO vo : list) {

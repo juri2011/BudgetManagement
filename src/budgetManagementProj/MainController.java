@@ -10,7 +10,7 @@ public class MainController {
     System.out.println("3. 내용 변경 : edit");
     System.out.println("4. 내용 삭제 : delete");
     System.out.println("5. 전체 내역 출력 : list");
-    System.out.println("6. 항목별 출력 : info");
+    System.out.println("6. 그룹별 출력 : info");
     System.out.println("7. 도움말 : help");
     System.out.println("8. 종료 : exit");
     System.out.println();
@@ -55,6 +55,7 @@ public class MainController {
     	    //명령이 추가되었으므로 다음 항목의 아이디가 될 contentNum의 값을 1 더합니다.
     	    contentNum++;
     	    System.out.println("성공적으로 등록되었습니다.");
+    	    System.out.println();
     	  }catch(NumberFormatException e) {
     		  System.out.println("수입금액이 올바른 형식으로 입력되지 않았습니다. 0 이상의 정수를 적어주십시오.");
     		  continue;
@@ -86,6 +87,7 @@ public class MainController {
     	    //명령이 추가되었으므로 다음 항목의 아이디가 될 contentNum의 값을 1 더합니다.
     	    contentNum++;
     	    System.out.println("성공적으로 등록되었습니다.");
+    	    System.out.println();
         }catch(NumberFormatException e) {
           System.out.println("지출금액이 올바른 형식으로 입력되지 않았습니다. 0 이상의 정수를 적어주십시오.");
           continue;
@@ -136,6 +138,7 @@ public class MainController {
           RequestDTO dto = new RequestDTO(contentNums[userInputNum-1],userInputs[1],money,userInputs[3]);
           edtSrv.editItem(dto);
           System.out.println("성공적으로 수정되었습니다.");
+          System.out.println();
         }catch(ArrayIndexOutOfBoundsException e) {
           System.out.println("항목에 없는 숫자를 입력하셨습니다.");
         }catch(MinusMoneyException e) {
